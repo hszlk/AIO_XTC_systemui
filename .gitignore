@@ -148,7 +148,7 @@ $RECYCLE.BIN/
 .dotnet/
 *.csproj.user
 
-# 鏈湴涓婁紶/鍑嵁杈呭姪鑴氭湰锛堢姝㈠叆搴擄級
-rebuild/tools/read_cred.ps1
-rebuild/tools/upload_*.ps1
-rebuild/tools/*secret*
+# ---- 鍙戝竷浜х墿锛堟槑纭撼鍏ョ増鏈鐞嗭級----
+!/dist/
+!/dist/*.apk
+!/dist/*.zip
