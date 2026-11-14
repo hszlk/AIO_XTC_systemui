@@ -1,0 +1,17 @@
+{
+  "_comment": "Strict cloud/telemetry removal targets. Only component declarations whose whole purpose is removed functionality are stripped; functional metadata (moduleSwitch/funSwitch/supportScreenRecordAudio/XtcStayFront) is deliberately kept - see analysis/cloud-control/CLOUD-REMOVAL.md.",
+  "service": [
+    "com.xtc.bigdata.collector.exception.CrashIntentService"
+  ],
+  "receiver": [
+    "com.xtc.bigdata.monitor.receiver.MonitorStartReceiver",
+    "com.xtc.xtcoco.CodeCoverageReceiver"
+  ],
+  "provider": [
+    "com.xtc.dns.provider.HttpDnsContentProvider"
+  ],
+  "uses-permission": [
+    "com.xtc.http.bigdata.provider.permission.READ_CONTENT",
+    "com.xtc.http.bigdata.provider.permission.WRITE_CONTENT"
+  ]
+}

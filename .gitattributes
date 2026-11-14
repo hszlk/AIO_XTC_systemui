@@ -1,0 +1,27 @@
+# 统一换行，避免 Windows / Linux 之间产生整文件 diff
+* text=auto eol=lf
+
+# Windows 脚本保持 CRLF（部分工具对 LF 兼容性差）
+*.ps1   text eol=crlf
+*.psm1  text eol=crlf
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+
+# Unix / Android 侧脚本必须是 LF（设备端 sh 拒绝 CRLF）
+*.sh    text eol=lf
+*.py    text eol=lf
+*.java  text eol=lf
+*.md    text eol=lf
+
+# 二进制，永不换行转换
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.apk   binary
+*.dex   binary
+*.jar   binary
+*.zip   binary
+*.keystore binary
+*.jks   binary

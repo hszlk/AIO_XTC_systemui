@@ -1,0 +1,149 @@
+# ============================================================
+# XTCSystemUI — .gitignore
+# 原则：只提交「自己写的东西」（源码 / 构建脚本 / 文档），
+#       厂商二进制、逆向工作区、构建产物、签名私钥一律不入库。
+# ============================================================
+
+# ------------------------------------------------------------
+# 1) 厂商原始二进制与所有编译产物
+# ------------------------------------------------------------
+# 需要的输入：把你自己合法持有的原包放到 XTCSystemUI.apk（脚本以它为资源骨架）
+XTCSystemUI.apk
+
+# APK / dex / odex / vdex / 打包产物
+*.apk
+*.apks
+*.xapk
+*.dex
+*.odex
+*.vdex
+*.oat
+*.jar
+*.aar
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+
+# ------------------------------------------------------------
+# 2) 逆向工作区（数百 MB：dex、vdex、jadx 全量反编译）
+# ------------------------------------------------------------
+/work/
+/nx/
+
+# ------------------------------------------------------------
+# 3) 构建产物与中间目录
+# ------------------------------------------------------------
+# 任意层级的构建输出（rebuild/build、analysis/cloud-control/build 等）
+**/build/
+/rebuild/backup-modules-*/
+# Mode B（aapt2 重建资源）的临时工程，含厂商 manifest 解码副本，按需本地生成
+/rebuild/app/
+# Java 编译产物
+*.class
+
+# 构建时抓的临时截图 / UI dump
+/rebuild/qshot*.png
+/rebuild/v76_panel.png
+/rebuild/ui.xml
+
+# .NET / Java 中间目录（如以后接入 gradle / dotnet）
+**/bin/
+**/obj/
+/.gradle/
+/build/
+/target/
+
+# ------------------------------------------------------------
+# 4) 签名私钥与证书（绝对不能提交）
+# ------------------------------------------------------------
+/rebuild/keystore/
+*.keystore
+*.jks
+*.p12
+*.pem
+*.pk8
+*.x509
+
+# ------------------------------------------------------------
+# 5) 分析目录：保留 Markdown 文档，丢弃重型的厂商派生数据
+# ------------------------------------------------------------
+# 资源/类清单的原始导出（几十万行，属于厂商数据）
+/analysis/res/_dump_resources.txt
+/analysis/res/_scan_report.txt
+/analysis/res/_badging.txt
+/analysis/modules/_*.csv
+/analysis/modules/*/_*.txt
+
+# 截图与临时 UI dump
+/analysis/shots/
+
+# 与本仓库无关的排查日志、数据库、第三方 APK（如当时抓的 NetEase 日志）
+/analysis/*.log
+/analysis/*.db
+/analysis/*.db-shm
+/analysis/*.db-wal
+/analysis/*.apk
+/analysis/dump_out.txt
+/analysis/lsp*.db
+# 与 SystemUI 工程无关的一次性排查脚本
+/analysis/dump_lsp.py
+
+# ------------------------------------------------------------
+# 6) Python / Node 缓存
+# ------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+node_modules/
+package-lock.json
+
+# ------------------------------------------------------------
+# 7) 日志、临时文件、转储
+# ------------------------------------------------------------
+*.log
+*.tmp
+*.temp
+*.bak
+*.bak-*
+*.orig
+*.rej
+*.swp
+*~
+dump_out.txt
+logcat*.txt
+ui.xml
+*.png.tmp
+
+# ------------------------------------------------------------
+# 8) IDE / 编辑器 / 操作系统
+# ------------------------------------------------------------
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.settings/
+.project
+.classpath
+.vs/
+*.suo
+*.user
+*.ncb
+*.sdf
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+$RECYCLE.BIN/
+
+# ------------------------------------------------------------
+# 9) 本机环境残留
+# ------------------------------------------------------------
+.dotnet/
+.dotnet-home/
+.nuget/
+.tools/
+.dotnet/
+*.csproj.user

@@ -1,0 +1,113 @@
+{
+  "_comment": "Repairs applied to the jadx-decoded resource tree by tools/stage-res.ps1. jadx cannot map every binary-XML typed value back to its symbolic form, so flags/enums appear as bare numbers; aapt2 only accepts the symbolic form. A handful of references point at private framework resources that do not exist in the public android-30 android.jar. Every rule asserts a minimum hit count: if the upstream decode changes, the build fails instead of silently shipping a different APK.",
+  "literalPatches": [
+    {
+      "file": "values/dimens.xml",
+      "find": "<dimen name=\"status_bar_icon_drawing_size_dark\">@android:dimen/indeterminate_progress_alpha_26</dimen>",
+      "replace": "<dimen name=\"status_bar_icon_drawing_size_dark\">@dimen/status_bar_icon_drawing_size</dimen>",
+      "reason": "indeterminate_progress_alpha_26 is a private framework dimen; alias the app-local equivalent",
+      "count": 1
+    },
+    {
+      "file": "values/dimens.xml",
+      "find": "<dimen name=\"status_bar_icon_size\">@android:dimen/lock_pattern_dot_line_width</dimen>",
+      "replace": "<dimen name=\"status_bar_icon_size\">@dimen/status_bar_icon_drawing_size</dimen>",
+      "reason": "lock_pattern_dot_line_width is a private framework dimen; alias the app-local equivalent",
+      "count": 1
+    },
+    {
+      "file": "values/styles.xml",
+      "find": "parent=\"@android:style/TextAppearance.Watch.AppErrorDialog\"",
+      "replace": "parent=\"@android:style/TextAppearance.Material\"",
+      "reason": "TextAppearance.Watch.AppErrorDialog only exists in the XTC device framework, not in stock android-30; Theme.SystemUI and qs_base inherit from the closest public TextAppearance instead (KNOWN DEVIATION, see docs/BUILD.md)",
+      "count": 2
+    },
+    {
+      "file": "values/styles.xml",
+      "find": "@android:color/car_yellow_700",
+      "replace": "#FFC0CA33",
+      "reason": "car_yellow_700 is a private framework colour (XTC device framework); substituted with the closest approximation #FFC0CA33 (KNOWN DEVIATION, see docs/BUILD.md)",
+      "count": 2
+    },
+    {
+      "file": "values/styles.xml",
+      "find": "@android:color/datepicker_default_normal_text_color_material_dark",
+      "replace": "#FFFFFFFF",
+      "reason": "datepicker_default_normal_text_color_material_dark is a private framework colour; substituted with the Material dark primary-text colour #FFFFFFFF (KNOWN DEVIATION)",
+      "count": 1
+    }
+  ],
+  "typedValueRules": [
+    {
+      "attr": "android:layout_width", "value": "-2", "symbolic": "match_parent", "min": 2,
+      "reason": "-2 = MATCH_PARENT"
+    },
+    {
+      "attr": "android:layout_height", "value": "-2", "symbolic": "match_parent", "min": 7,
+      "reason": "-2 = MATCH_PARENT"
+    },
+    {
+      "attr": "android:layout_width", "value": "-1", "symbolic": "wrap_content", "min": 7,
+      "reason": "-1 = WRAP_CONTENT"
+    },
+    {
+      "attr": "android:layout_height", "value": "-1", "symbolic": "wrap_content", "min": 2,
+      "reason": "-1 = WRAP_CONTENT"
+    },
+    {
+      "attr": "android:layout_gravity", "value": "0x1", "symbolic": "center_horizontal", "min": 3,
+      "reason": "Gravity.CENTER_HORIZONTAL = 0x01"
+    },
+    {
+      "attr": "android:layout_gravity", "value": "0x800013", "symbolic": "start|center_vertical", "min": 1,
+      "reason": "Gravity.START(0x00800003) | CENTER_VERTICAL(0x10)"
+    },
+    {
+      "attr": "android:gravity", "value": "0x10", "symbolic": "center_vertical", "min": 1,
+      "reason": "Gravity.CENTER_VERTICAL = 0x10"
+    },
+    {
+      "attr": "android:gravity", "value": "0x11", "symbolic": "center", "min": 4,
+      "reason": "Gravity.CENTER = 0x11"
+    },
+    {
+      "attr": "android:textStyle", "value": "0x0", "symbolic": "normal", "min": 1,
+      "reason": "Typeface.NORMAL = 0"
+    },
+    {
+      "attr": "android:windowSoftInputMode", "value": "0x20", "symbolic": "adjustPan", "min": 3,
+      "reason": "SOFT_INPUT_ADJUST_PAN = 0x20"
+    },
+    {
+      "attr": "android:textAlignment", "value": "5", "symbolic": "center", "min": 3,
+      "reason": "TEXT_ALIGNMENT_CENTER = 5"
+    },
+    {
+      "attr": "android:textAlignment", "value": "6", "symbolic": "viewStart", "min": 1,
+      "reason": "TEXT_ALIGNMENT_VIEW_START = 6"
+    },
+    {
+      "attr": "android:ellipsize", "value": "3", "symbolic": "end", "min": 3,
+      "reason": "TruncateAt.END = 3"
+    },
+    {
+      "attr": "android:breakStrategy", "value": "0", "symbolic": "simple", "min": 1,
+      "reason": "BREAK_STRATEGY_SIMPLE = 0"
+    },
+    {
+      "attr": "android:breakStrategy", "value": "1", "symbolic": "high_quality", "min": 1,
+      "reason": "BREAK_STRATEGY_HIGH_QUALITY = 1"
+    },
+    {
+      "attr": "android:hyphenationFrequency", "value": "0", "symbolic": "none", "min": 2,
+      "reason": "HYPHENATION_FREQUENCY_NONE = 0"
+    }
+  ],
+  "dropItemRules": [
+    {
+      "pattern": "[ \t]*<item name=\"android:\\^attr-private\\.[^\"]*\">[^<]*</item>[ \t]*\\r?\\n",
+      "min": 4,
+      "reason": "jadx emitted aapt2's internal '^attr-private.' notation for private framework attributes (defaultQueryHint, pointerIconTopLeftDiagonalDoubleArrow, relativeTimeUnitDisplayLength, interpolatorY); those attrs cannot be resolved against the public android-30 android.jar, so the items are dropped (KNOWN DEVIATION)"
+    }
+  ]
+}
