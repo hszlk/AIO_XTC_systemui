@@ -238,12 +238,10 @@ adb shell su -c "magisk --install-module /sdcard/XTCSystemUI-v82-sysui-shell.zip
 
 ## 8. 许可证
 
-尚未添加 `LICENSE`。开源前建议二选一：
+本项目以 **GNU Affero General Public License v3.0（AGPL-3.0）** 发布，全文见 [`LICENSE`](LICENSE)。
 
-- **GPL-3.0**：与 Android/AOSP 生态一致，衍生作品需同样开源（推荐）；
-- **MIT**：最宽松，便于他人复用。
-
-确定后把 `LICENSE` 放到仓库根目录，并在本段替换说明即可。
+> AGPL-3.0 = GPL-3.0 + 一条网络条款：若把修改版作为网络服务对外提供，也必须向使用者开放源码。
+> 复制、修改、分发请保留版权声明与许可文本；本工程不提供任何厂商二进制，见第 7 节。
 
 ---
 
