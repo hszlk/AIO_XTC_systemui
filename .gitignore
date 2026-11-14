@@ -152,3 +152,11 @@ $RECYCLE.BIN/
 !/dist/
 !/dist/*.apk
 !/dist/*.zip
+
+# ---- 鏈湴杈呭姪鑴氭湰锛堝惈鍑嵁璇诲彇浠ｇ爜锛岀姝㈠叆搴擄級----
+/rebuild/tools/read_cred.ps1
+/rebuild/tools/upload_*.ps1
+/rebuild/tools/fix_upload.ps1
+/rebuild/tools/cleanup_repo.ps1
+/rebuild/tools/finalize_upload.ps1
+/rebuild/tools/*secret*
